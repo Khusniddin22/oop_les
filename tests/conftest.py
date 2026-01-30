@@ -43,3 +43,32 @@ def product():
         price=1000,
         quantity=10,
     )
+
+
+@pytest.fixture
+def product_add():
+    return Product(
+        name="Колонка",
+        description="Колонка для компьютера",
+        price=500,
+        quantity=2,
+    )
+
+
+@pytest.fixture
+def products_print():
+    return Category(
+        "Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        [
+            Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5),
+            Product("Iphone 15", "512GB, Gray space", 210000.0, 8),
+        ],
+    )
+
+
+@pytest.fixture
+def new_product():
+    return Product.new_product(
+        {"name": "Iphone 15", "description": "512GB, Gray space", "price": 210000.0, "quantity": 8}
+    )
