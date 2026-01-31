@@ -1,3 +1,6 @@
+from itertools import count
+
+
 class Product:
     """Класс продуктов"""
 
@@ -11,6 +14,15 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        cost_first_pruduct = self.quantity * self.__price
+        cost_second_product = other.quantity * other.__price
+        total_cost = cost_first_pruduct + cost_second_product
+        return total_cost
 
     @classmethod
     def new_product(cls, prod: dict):
@@ -52,6 +64,12 @@ class Category:
         self.__products = products
         Category.category_count += 1
         Category.product_count += len(products)
+
+    def __str__(self):
+        count = 0
+        for product in self.__products:
+            count += product.quantity
+        return f"{self.name}, количество продуктов: {count} шт."
 
     def add_product(self, product):
         """Добавляет товар в список продуктов в категории"""

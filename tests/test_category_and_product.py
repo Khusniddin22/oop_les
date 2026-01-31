@@ -64,3 +64,18 @@ def test_get_set_price(product):
     product.price = -50.0
     result = product.price
     assert result == new_price
+
+
+def test_str_product(product):
+    result = str(product.__str__())
+    assert result == "Мышка, 1000 руб. Остаток: 10 шт."
+
+
+def test_str_category(first_category):
+    result = str(first_category.__str__())
+    assert result == "Ноутбуки, количество продуктов: 10 шт."
+
+
+def test_add_product(product, product_add):
+    result = product + product_add
+    assert result == 11000
