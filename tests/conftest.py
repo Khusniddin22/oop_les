@@ -6,7 +6,7 @@ import pytest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # Теперь импорт должен работать
-from src.category_and_product import Category, Product
+from src.category_and_product import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture
@@ -72,3 +72,20 @@ def new_product():
     return Product.new_product(
         {"name": "Iphone 15", "description": "512GB, Gray space", "price": 210000.0, "quantity": 8}
     )
+
+
+@pytest.fixture
+def first_smartphone():
+    return Smartphone("Iphone 16 Pro", "256GB, Black space", 150000.0, 10, 98.2, "16", 256, "Black space")
+
+
+@pytest.fixture
+def second_smartphone():
+    return Smartphone(
+        "Samsung Galaxy S24 Ultra", "256GB, Серый цвет, 200MP камера", 100000.0, 5, 95.5, "S24 Ultra", 256, "Серый"
+    )
+
+
+@pytest.fixture
+def first_lawng_rass():
+    return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")

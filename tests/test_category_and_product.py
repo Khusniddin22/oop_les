@@ -1,3 +1,5 @@
+from pydoc import resolve
+
 import pytest
 
 from src.category_and_product import Category, Product
@@ -41,7 +43,7 @@ def test_add_product_category(product_add):
         ],
     )
     category1.add_product(product_add)
-    assert category1.product_count == 9
+    assert category1.product_count == 3
 
 
 def test_products_print(products_print):
@@ -79,3 +81,23 @@ def test_str_category(first_category):
 def test_add_product(product, product_add):
     result = product + product_add
     assert result == 11000
+
+
+def test_add_product_identical_products(first_smartphone, second_smartphone):
+    """Тест на проверку сложения одинаковых продуктов"""
+    result = first_smartphone + second_smartphone
+    assert result == 2_000_000.0
+
+
+def test_add_product_different_products(first_smartphone, first_lawng_rass):
+    """Тест на проверку сложения разных категорий продуктов"""
+    with pytest.raises(TypeError) as raise_type:
+        first_lawng_rass + first_smartphone
+    assert "Нельзя складывать продукты разных конкретных типов." in str(raise_type)
+
+
+def test_add_product_of_category_error(first_category):
+    """Тест на добавление продукта в категорию не относящийся к классу Продукты"""
+    with pytest.raises(TypeError) as raise_type:
+        first_category.add_product("Not a product")
+    assert "Нельзя добавить категорию не относящуюся к Продуктам." in str(raise_type)
