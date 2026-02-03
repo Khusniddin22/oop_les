@@ -101,3 +101,12 @@ def test_add_product_of_category_error(first_category):
     with pytest.raises(TypeError) as raise_type:
         first_category.add_product("Not a product")
     assert "Нельзя добавить категорию не относящуюся к Продуктам." in str(raise_type)
+
+
+def test_MixinPrint(capsys):
+    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+    captured = capsys.readouterr()
+
+    expected_output = "Product, Xiaomi Redmi Note 11, 1024GB, Синий, 31000.0, 14\n"
+
+    assert captured.out == expected_output

@@ -1,7 +1,27 @@
-from itertools import count
+from abc import ABC, abstractmethod
 
 
-class Product:
+class BaseProduct(ABC):
+    @abstractmethod
+    def __init__(self, name, description, price, quantity):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+
+class MixinPrint:
+    """Класс-миксин для вывода информации о том, от какого класса и с какими параметрами был создан объект"""
+
+    def __init__(self):
+        print(repr(self))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}, {self.name}, {self.description}, {self.price}, {self.quantity}"
+
+
+class Product(MixinPrint, BaseProduct):
     """Класс продуктов"""
 
     name: str
@@ -14,6 +34,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self):
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
