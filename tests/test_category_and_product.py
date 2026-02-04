@@ -2,7 +2,7 @@ from pydoc import resolve
 
 import pytest
 
-from src.category_and_product import Category, Product
+from src.category_and_product import Category, LawnGrass, Product, Smartphone
 
 
 def test_category_init(first_category, second_category):
@@ -110,3 +110,23 @@ def test_MixinPrint(capsys):
     expected_output = "Product, Xiaomi Redmi Note 11, 1024GB, Синий, 31000.0, 14\n"
 
     assert captured.out == expected_output
+
+
+def test_MixinPrint_repr():
+    # Тест на правильный возврат строки метода __repr__
+    product4 = Product("Iphone", "64GB", 50000.0, 5)
+    assert repr(product4) == "Product, Iphone, 64GB, 50000.0, 5"
+
+
+def test_MixinPrint_Smartphone(capsys):
+    smart1 = Smartphone("Samsung Galaxy S10", "256GB", 20000.0, 1, 90.5, "S10", 256, "Серый")
+    captured = capsys.readouterr()
+    expected_result = "Smartphone, Samsung Galaxy S10, 256GB, 20000.0, 1\n"
+    assert captured.out == expected_result
+
+
+def test_mixinPrint_LawnGrass(capsys):
+    grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    captured = capsys.readouterr()
+    expected_result = "LawnGrass, Газонная трава, Элитная трава для газона, 500.0, 20\n"
+    assert captured.out == expected_result
