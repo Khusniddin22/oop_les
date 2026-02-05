@@ -5,15 +5,13 @@ import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Теперь импорт должен работать
 from src.category_and_product import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
 def reset_counters():
     """
-    Эта функция будет запускаться АВТОМАТИЧЕСКИ перед каждым тестом.
-    Она сбрасывает счетчики в классе Category в ноль.
+    Эта функция сбрасывает счетчики в классе Category в ноль перед каждым тестом
     """
     Category.category_count = 0
     Category.product_count = 0

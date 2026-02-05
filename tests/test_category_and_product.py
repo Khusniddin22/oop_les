@@ -1,5 +1,3 @@
-from pydoc import resolve
-
 import pytest
 
 from src.category_and_product import Category, LawnGrass, Product, Smartphone
@@ -130,3 +128,22 @@ def test_mixinPrint_LawnGrass(capsys):
     captured = capsys.readouterr()
     expected_result = "LawnGrass, Газонная трава, Элитная трава для газона, 500.0, 20\n"
     assert captured.out == expected_result
+
+
+def test_zero_product():
+    """Тест на нулевое количество товаров"""
+    with pytest.raises(Exception):
+        Product("Realme 11", "128GB", 20000.0, 0)
+
+
+def test_expect_middle_price(first_category):
+    """Тест на правильный подсчет среднего ценника всех товаров"""
+    result = first_category.middle_price()
+    assert result == 64000
+
+
+def test_error_middle_price():
+    """Тест на ошибку подсчета среднего ценника"""
+    category_zero_product = Category("Молочные продукты", "Полезные продукты", [])
+    result = category_zero_product.middle_price()
+    assert result == 0

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from itertools import count
 
 
 class BaseProduct(ABC):
@@ -33,7 +34,10 @@ class Product(MixinPrint, BaseProduct):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity != 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
     def __str__(self):
@@ -111,6 +115,19 @@ class Category:
         for product in self.__products:
             str_prod += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт\n"
         return str_prod
+
+    def middle_price(self):
+        """Подсчитывает средний ценник всех товаров, если кол-во товаров не равно 0"""
+        sum_price = 0
+        count = 0
+        try:
+            for product in self.__products:
+                sum_price += product.price * product.quantity
+                count += product.quantity
+            ave_price = sum_price / count
+            return round(ave_price, 2)
+        except Exception:
+            return 0
 
 
 class Smartphone(Product):
